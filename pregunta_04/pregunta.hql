@@ -44,3 +44,13 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 /*
     >>> Escriba su respuesta a partir de este punto <<<
 */
+
+DROP TABLE IF EXISTS Result;
+CREATE TABLE Result 
+    AS 
+        SELECT DISTINCT a.convertir FROM (
+            SELECT EXPLODE(c5) AS convertir from tbl0
+        ) AS a;
+
+INSERT OVERWRITE DIRECTORY 'output'
+SELECT * FROM Result;
