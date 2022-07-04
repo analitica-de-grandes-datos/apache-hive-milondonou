@@ -45,3 +45,18 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
     >>> Escriba su respuesta a partir de este punto <<<
 */
 
+DROP TABLE IF EXISTS Result;
+CREATE TABLE Result 
+    AS 
+        SELECT a.anno, a.exploder, count(*)
+        FROM ( 
+        SELECT YEAR(c4) AS anno,
+            exploder
+            FROM tbl0 
+            LATERAL VIEW
+                EXPLODE(c5) tbl0 AS exploder) as a
+        GROUP BY a.anno,a.exploder;
+
+INSERT OVERWRITE DIRECTORY 'output'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT * FROM Result;
