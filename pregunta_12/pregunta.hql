@@ -15,8 +15,8 @@ Apache Hive se ejecutará en modo local (sin HDFS).
 Escriba el resultado a la carpeta `output` de directorio de trabajo.
 
 */
-
 DROP TABLE IF EXISTS t0;
+DROP TABLE IF EXISTS datos;
 CREATE TABLE t0 (
     c1 STRING,
     c2 ARRAY<CHAR(1)>, 
